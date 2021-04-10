@@ -61,7 +61,7 @@ func NewSynProbe(opts ...SynProbeOption) (_ *SynProbe, _ TCPAddrChannel, err err
 	if err != nil {
 		return nil, nil, err
 	}
-	err = probe.ipHandle.SetBPFFilter(fmt.Sprintf("port %d", probe.sourcePort))
+	err = probe.ipHandle.SetBPFFilter(fmt.Sprintf("dst port %d", probe.sourcePort))
 	if err != nil {
 		return nil, nil, err
 	}
