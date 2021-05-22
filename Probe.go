@@ -30,9 +30,9 @@ type SynProbe struct {
 	// Limiter
 	limiter ratelimit.Limiter
 	// Packet conn
-	ip4packetConn net.PacketConn
+	ip4packetConn *net.IPConn
 	// Packet conn
-	ip6packetConn net.PacketConn
+	ip6packetConn *net.IPConn
 }
 
 type TCPAddrChannel chan net.TCPAddr
@@ -65,11 +65,23 @@ func NewSynProbe(opts ...SynProbeOption) (_ *SynProbe, _ TCPAddrChannel, err err
 	if err != nil {
 		return nil, nil, err
 	}
-	probe.ip4packetConn, err = net.ListenPacket("ip4:tcp", probe.sourceIPv4.String())
+	probe.ip4packetConn, err = net.ListenIP("ip4:tcp", &net.IPAddr{
+		IP:    probe.sourceIPv4,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
-	probe.ip6packetConn, err = net.ListenPacket("ip6:tcp", probe.sourceIPv6.String())
+	probe.ip6packetConn, err = net.ListenIP("ip6:tcp",&net.IPAddr{
+		IP:    probe.sourceIPv6,
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	err = probe.ip4packetConn.SetWriteBuffer(128*1024)
+	if err != nil {
+		return nil, nil, err
+	}
+	err = probe.ip6packetConn.SetWriteBuffer(128*1024)
 	if err != nil {
 		return nil, nil, err
 	}
