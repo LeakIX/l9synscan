@@ -77,14 +77,6 @@ func NewSynProbe(opts ...SynProbeOption) (_ *SynProbe, _ TCPAddrChannel, err err
 	if err != nil {
 		return nil, nil, err
 	}
-	err = probe.ip4packetConn.SetWriteBuffer(128*1024)
-	if err != nil {
-		return nil, nil, err
-	}
-	err = probe.ip6packetConn.SetWriteBuffer(128*1024)
-	if err != nil {
-		return nil, nil, err
-	}
 	go probe.listen()
 	return probe, probe.outputChannel, nil
 }
