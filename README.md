@@ -61,7 +61,7 @@ You're going to need libpcap's headers and **go1.14+** to built l9synscan.
 
 ### l9format
 
-l9synscan speaks [l9format](https://github/LeakIX/l9format). [l9filter](https://github/LeakIX/l9filter) can be used to manage 
+l9synscan speaks [l9format](https://github.com/LeakIX/l9format). [l9filter](https://github.com/LeakIX/l9filter) can be used to manage 
 input/output from this module.
 
 ### Running with l9synscan from DNS enumeration
