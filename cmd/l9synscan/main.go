@@ -8,6 +8,7 @@ import (
 
 var App struct {
 	Scan l9synscan.L9SynScanCommand `cmd help:"Scans ipv4/ipv6 from l9 input"`
+	Test l9synscan.L9SynTestCommand `cmd help:"Runs on loopback to evaluate perfs"`
 }
 
 func main() {
